@@ -1,0 +1,1784 @@
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/auth/dashboard/ HTTP/1.1" 200 1577
+"GET /accounts/login/?next=/auth/dashboard/ HTTP/1.1" 200 1577
+"GET /accounts/signup/ HTTP/1.1" 200 1975
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/signup/ HTTP/1.1" 200 1975
+"GET /accounts/signup/ HTTP/1.1" 200 1975
+Internal Server Error: /accounts/signup/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\decorators.py", line 20, in wrap
+    resp = function(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\views\decorators\debug.py", line 92, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\decorators.py", line 46, in _wrapper
+    return bound_method(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\views\decorators\cache.py", line 62, in _wrapper_view_func
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\views.py", line 242, in dispatch
+    return super(SignupView, self).dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\views.py", line 83, in dispatch
+    response = super(RedirectAuthenticatedUserMixin, self).dispatch(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\views.py", line 214, in dispatch
+    return super(CloseableSignupMixin, self).dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\views.py", line 111, in post
+    response = self.form_valid(form)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\views.py", line 260, in form_valid
+    return complete_signup(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\utils.py", line 243, in complete_signup
+    return perform_login(
+           ^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\utils.py", line 168, in perform_login
+    return _perform_login(request, login)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\utils.py", line 178, in _perform_login
+    response = adapter.pre_login(request, login.user, **hook_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\adapter.py", line 411, in pre_login
+    send_email_confirmation(request, user, signup=signup, email=email)
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\utils.py", line 386, in send_email_confirmation
+    email_address.send_confirmation(request, signup=signup)
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\models.py", line 93, in send_confirmation
+    confirmation.send(request, signup=signup)
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\models.py", line 126, in send
+    get_adapter().send_confirmation_mail(request, self, signup)
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\adapter.py", line 602, in send_confirmation_mail
+    self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\allauth\account\adapter.py", line 144, in send_mail
+    msg.send()
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\mail\message.py", line 298, in send
+    return self.get_connection(fail_silently).send_messages([self])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\mail\backends\smtp.py", line 127, in send_messages
+    new_conn_created = self.open()
+                       ^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\mail\backends\smtp.py", line 85, in open
+    self.connection = self.connection_class(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\smtplib.py", line 255, in __init__
+    (code, msg) = self.connect(host, port)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\smtplib.py", line 341, in connect
+    self.sock = self._get_socket(host, port, self.timeout)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\smtplib.py", line 312, in _get_socket
+    return socket.create_connection((host, port), timeout,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 851, in create_connection
+    raise exceptions[0]
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\socket.py", line 836, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+"POST /accounts/signup/ HTTP/1.1" 500 217052
+Watching for file changes with StatReloader
+"GET /accounts/signup/ HTTP/1.1" 200 1975
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+Watching for file changes with StatReloader
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+"GET /accounts/login/ HTTP/1.1" 200 1483
+Watching for file changes with StatReloader
+"GET /auth/login/ HTTP/1.1" 200 3276
+"GET /static/css/auth.css HTTP/1.1" 200 7892
+"GET /static/js/auth.js HTTP/1.1" 200 9246
+Not Found: /Quit
+"GET /Quit HTTP/1.1" 404 2902
+"GET /auth/register/ HTTP/1.1" 200 6874
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /auth/register/ HTTP/1.1" 200 7281
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /auth/register/ HTTP/1.1" 200 7010
+"POST /auth/register/ HTTP/1.1" 200 7010
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /auth/login/ HTTP/1.1" 200 3276
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"POST /auth/login/ HTTP/1.1" 200 3522
+"POST /auth/login/ HTTP/1.1" 200 3543
+"GET /static/css/auth.css HTTP/1.1" 304 0
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /auth/login/
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /auth/register/
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /auth/dashboard/
+"POST /auth/login/ HTTP/1.1" 200 3543
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /auth/register/ HTTP/1.1" 200 6874
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /auth/register/ HTTP/1.1" 200 7007
+"GET /static/css/auth.css HTTP/1.1" 304 0
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /auth/login/
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /auth/register/
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Bad Request: /auth/dashboard/
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"POST /auth/register/ HTTP/1.1" 200 7007
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /auth/register/ HTTP/1.1" 200 6874
+"GET / HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 3276
+"GET /auth/register/ HTTP/1.1" 200 6874
+"POST /auth/register/ HTTP/1.1" 200 7006
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /auth/login/ HTTP/1.1" 200 3276
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\forms.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /auth/dashboard/ HTTP/1.1" 302 0
+"GET /auth/login/?next=/auth/dashboard/ HTTP/1.1" 200 3276
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /auth/login/?next=/auth/dashboard/ HTTP/1.1" 200 3259
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /static/css/auth.css HTTP/1.1" 200 9961
+"GET /auth/login/?next=/auth/dashboard/ HTTP/1.1" 200 3259
+"GET /static/css/auth.css HTTP/1.1" 200 10014
+"GET /auth/login/ HTTP/1.1" 200 3259
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /auth/login/ HTTP/1.1" 200 3259
+"GET /auth/login/ HTTP/1.1" 200 3259
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 17402
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+Internal Server Error: /face/enrollment/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: face_recognition/enrollment.html
+"GET /face/enrollment/ HTTP/1.1" 500 91967
+Internal Server Error: /attendance/reports/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/reports.html
+"GET /attendance/reports/ HTTP/1.1" 500 91829
+Internal Server Error: /attendance/check/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/check.html
+"GET /attendance/check/ HTTP/1.1" 500 91773
+Internal Server Error: /auth/settings/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/settings.html
+"GET /auth/settings/ HTTP/1.1" 500 91869
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+Internal Server Error: /auth/settings/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/settings.html
+"GET /auth/settings/ HTTP/1.1" 500 91869
+"GET /auth/profile/ HTTP/1.1" 200 20466
+"GET /auth/profile/edit/ HTTP/1.1" 200 21850
+"GET /auth/profile/ HTTP/1.1" 200 20466
+"GET /auth/profile/edit/ HTTP/1.1" 200 21850
+"GET /auth/profile/ HTTP/1.1" 200 20466
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+"GET /auth/users/ HTTP/1.1" 200 31464
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+"GET /auth/users/ HTTP/1.1" 200 31464
+"GET /auth/users/?search=&department=b44c5604-70d1-4938-8479-04c4b79e331c&role= HTTP/1.1" 200 23826
+"GET /auth/users/?search=&department=&role= HTTP/1.1" 200 31464
+Internal Server Error: /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/user_detail.html
+"GET /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/ HTTP/1.1" 500 92331
+Internal Server Error: /face/enrollment/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: face_recognition/enrollment.html
+"GET /face/enrollment/ HTTP/1.1" 500 91997
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+"GET /auth/settings/ HTTP/1.1" 200 32778
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+"GET /auth/login/?next=/auth/dashboard/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 3259
+"GET /static/css/auth.css HTTP/1.1" 200 10014
+"GET /static/js/auth.js HTTP/1.1" 200 9246
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2814
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 17402
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+Internal Server Error: /attendance/history/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/history.html
+"GET /attendance/history/ HTTP/1.1" 500 91690
+"GET /auth/users/ HTTP/1.1" 200 31464
+Internal Server Error: /attendance/reports/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/reports.html
+"GET /attendance/reports/ HTTP/1.1" 500 91685
+"GET /admin/ HTTP/1.1" 200 5784
+"GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+"GET /static/admin/css/base.css HTTP/1.1" 200 21207
+"GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+"GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+"GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+"GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+"GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /auth/dashboard/ HTTP/1.1" 200 17047
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+Internal Server Error: /attendance/reports/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/reports.html
+"GET /attendance/reports/ HTTP/1.1" 500 91690
+Internal Server Error: /attendance/reports/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/reports.html
+"GET /attendance/reports/ HTTP/1.1" 500 91827
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /auth/dashboard/ HTTP/1.1" 200 21500
+"GET /auth/dashboard/ HTTP/1.1" 200 21351
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+"GET /attendance/history/ HTTP/1.1" 200 24118
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /attendance/history/ HTTP/1.1" 200 24118
+"GET /auth/users/ HTTP/1.1" 200 31464
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /admin/ HTTP/1.1" 200 5784
+"GET /static/admin/css/base.css HTTP/1.1" 304 0
+"GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+"GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+"GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+"GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+"GET /static/admin/js/theme.js HTTP/1.1" 304 0
+"GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+"GET /admin/sites/site/add/ HTTP/1.1" 200 8536
+"GET /admin/jsi18n/ HTTP/1.1" 200 3343
+"GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+"GET /static/admin/js/actions.js HTTP/1.1" 200 7872
+"GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+"GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8943
+"GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+"GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+"GET /static/admin/css/forms.css HTTP/1.1" 200 9047
+"GET /static/admin/css/widgets.css HTTP/1.1" 200 11900
+"GET /static/admin/js/core.js HTTP/1.1" 200 5682
+"GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+"GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+"GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+"GET /admin/ HTTP/1.1" 200 5784
+"GET / HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+Internal Server Error: /face/enrollment/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+"GET /face/enrollment/ HTTP/1.1" 500 188826
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+"GET /auth/dashboard/ HTTP/1.1" 500 196044
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+"GET /auth/dashboard/ HTTP/1.1" 500 196044
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'user_management' not found. 'user_management' is not a valid view function or pattern name.
+Watching for file changes with StatReloader
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /attendance/history/ HTTP/1.1" 200 24119
+"GET /auth/users/ HTTP/1.1" 200 31464
+Internal Server Error: /attendance/reports/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: attendance/reports.html
+"GET /attendance/reports/ HTTP/1.1" 500 91685
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+"GET /auth/settings/ HTTP/1.1" 200 32778
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /attendance/check/ HTTP/1.1" 200 35415
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+"GET /face/enrollment/ HTTP/1.1" 200 32071
+"GET /auth/dashboard/ HTTP/1.1" 200 22573
+"GET /auth/logout/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 3558
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /auth/register/ HTTP/1.1" 200 7262
+"GET /auth/login/ HTTP/1.1" 200 3259
+"POST /auth/login/ HTTP/1.1" 200 3484
+"GET /auth/register/ HTTP/1.1" 200 7262
+"POST /auth/register/ HTTP/1.1" 200 7372
+"GET /auth/login/ HTTP/1.1" 200 3259
+"POST /auth/login/ HTTP/1.1" 200 3465
+"POST /auth/login/ HTTP/1.1" 200 3466
+"GET /auth/register/ HTTP/1.1" 200 7262
+"GET /auth/login/ HTTP/1.1" 200 3259
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 22928
+"GET /auth/users/ HTTP/1.1" 200 31464
+Internal Server Error: /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/user_detail.html
+"GET /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/ HTTP/1.1" 500 92157
+"GET /auth/users/ HTTP/1.1" 200 31464
+Internal Server Error: /auth/users/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\engine.py", line 161, in find_template
+    raise TemplateDoesNotExist(name, tried=tried)
+django.template.exceptions.TemplateDoesNotExist: base.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: base.html
+"GET /auth/users/ HTTP/1.1" 500 151049
+"GET /auth/users/ HTTP/1.1" 200 47968
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+"GET /attendance/check/ HTTP/1.1" 200 51919
+"GET /attendance/history/ HTTP/1.1" 200 40773
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+"GET /auth/users/ HTTP/1.1" 200 47968
+"GET /auth/profile/ HTTP/1.1" 200 36971
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition\urls.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /attendance/reports/ HTTP/1.1" 200 43211
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+"GET /attendance/check/ HTTP/1.1" 200 51919
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\urls.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+"GET /attendance/reports/ HTTP/1.1" 200 43211
+"GET /attendance/history/ HTTP/1.1" 200 40773
+"GET /attendance/check/ HTTP/1.1" 200 51919
+"GET /auth/users/ HTTP/1.1" 200 47968
+Watching for file changes with StatReloader
+"GET /attendance/check/ HTTP/1.1" 200 51919
+"GET /attendance/check/ HTTP/1.1" 200 51919
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+Watching for file changes with StatReloader
+"GET /auth/users/ HTTP/1.1" 200 47968
+Internal Server Error: /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: authentication/user_detail.html
+"GET /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/ HTTP/1.1" 500 92157
+"GET /attendance/history/ HTTP/1.1" 200 40773
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /attendance/check/ HTTP/1.1" 200 51919
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /attendance/check/ HTTP/1.1" 200 51919
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /attendance/history/ HTTP/1.1" 200 40773
+"GET /attendance/reports/ HTTP/1.1" 200 43211
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+"GET /auth/users/ HTTP/1.1" 200 47968
+"GET /auth/profile/ HTTP/1.1" 200 36971
+"GET /auth/profile/edit/ HTTP/1.1" 200 38348
+"GET /auth/settings/ HTTP/1.1" 200 49282
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+Not Found: /accounts/login/
+"GET /accounts/login/ HTTP/1.1" 404 2826
+"GET /auth/users/ HTTP/1.1" 200 47968
+"GET /auth/users/26215526-687e-4e5e-8710-13c5f5338e02/ HTTP/1.1" 200 38986
+"GET /auth/users/ HTTP/1.1" 200 47968
+"GET /auth/logout/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 3558
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /auth/register/ HTTP/1.1" 200 7262
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_system\settings.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\forms.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\forms.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /auth/login/ HTTP/1.1" 200 3259
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 39605
+"GET /attendance/check/ HTTP/1.1" 200 51919
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+"GET /auth/dashboard/ HTTP/1.1" 200 39143
+"GET /attendance/check/ HTTP/1.1" 200 51919
+"GET /attendance/history/ HTTP/1.1" 200 40773
+"GET /attendance/reports/ HTTP/1.1" 200 43211
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+Watching for file changes with StatReloader
+"GET /face/enrollment/ HTTP/1.1" 200 48575
+Internal Server Error: /face/enrollment/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'analytics' not found. 'analytics' is not a valid view function or pattern name.
+"GET /face/enrollment/ HTTP/1.1" 500 194871
+Internal Server Error: /attendance/reports/
+Traceback (most recent call last):
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\face_recognition_env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'analytics' not found. 'analytics' is not a valid view function or pattern name.
+"GET /attendance/reports/ HTTP/1.1" 500 192471
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\urls.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\urls.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /attendance/reports/ HTTP/1.1" 200 43243
+"GET /auth/analytics/ HTTP/1.1" 200 45292
+"GET /auth/departments/ HTTP/1.1" 200 47999
+"GET /auth/departments/64882205-13ea-49a4-b8b5-a064514e1b02/edit/ HTTP/1.1" 200 38852
+"GET /auth/logout/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 3558
+"GET /static/css/auth.css HTTP/1.1" 304 0
+"GET /static/js/auth.js HTTP/1.1" 304 0
+"GET /auth/register/ HTTP/1.1" 200 22017
+"GET /auth/login/ HTTP/1.1" 200 3259
+Watching for file changes with StatReloader
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 39637
+Watching for file changes with StatReloader
+"GET /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 39175
+"GET /auth/dashboard/ HTTP/1.1" 200 39175
+"GET /auth/analytics/ HTTP/1.1" 200 45292
+"GET /auth/logout/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 19074
+"GET /auth/register/ HTTP/1.1" 200 22098
+"GET /auth/login/ HTTP/1.1" 200 18645
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 38603
+"GET /auth/logout/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 19074
+"GET /auth/register/ HTTP/1.1" 200 22098
+"GET /auth/login/ HTTP/1.1" 200 18645
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 39637
+"GET /attendance/history/ HTTP/1.1" 200 40805
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /auth/dashboard/ HTTP/1.1" 200 39175
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /attendance/check/ HTTP/1.1" 200 51951
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /attendance/history/ HTTP/1.1" 200 40805
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /attendance/reports/ HTTP/1.1" 200 43243
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /face/enrollment/ HTTP/1.1" 200 48607
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /auth/users/ HTTP/1.1" 200 48194
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+"GET /auth/departments/ HTTP/1.1" 200 49671
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 2925
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\face_recognition\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\attendance\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 302 0
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\views.py", line 126, in get_context_data
+    from .models import AttendanceRecord
+ImportError: cannot import name 'AttendanceRecord' from 'authentication.models' (C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\models.py)
+"GET /auth/dashboard/ HTTP/1.1" 500 92643
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 2814
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Internal Server Error: /auth/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\views.py", line 128, in get_context_data
+    from .models import AttendanceRecord
+ImportError: cannot import name 'AttendanceRecord' from 'authentication.models' (C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\models.py)
+"GET /auth/dashboard/ HTTP/1.1" 500 93637
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\views.py changed, reloading.
+C:\Users\Khan\Downloads\30 Days with python\Day 7\attendace\authentication\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET /auth/dashboard/ HTTP/1.1" 200 39175
+"GET /auth/settings/ HTTP/1.1" 200 49314
+"GET /auth/dashboard/ HTTP/1.1" 200 39175
+"GET /attendance/check/ HTTP/1.1" 200 51951
+- Broken pipe from ('127.0.0.1', 59276)
+"GET /face/enrollment/ HTTP/1.1" 200 48607
+"GET /auth/logout/ HTTP/1.1" 302 0
+"GET /auth/login/ HTTP/1.1" 200 19074
+"POST /auth/login/ HTTP/1.1" 302 0
+"GET /auth/dashboard/ HTTP/1.1" 200 39637

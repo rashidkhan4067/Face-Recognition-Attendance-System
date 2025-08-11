@@ -1,0 +1,481 @@
+/* Authentication Pages Styles */
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Login Page Styles */
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    animation: slideUp 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+/* Register Page Styles */
+.register-page {
+    padding: 20px 0;
+    min-height: 100vh;
+}
+
+.register-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 700px;
+    animation: slideUp 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+/* Header Styles */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+.auth-header p {
+    color: #7f8c8d;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+
+.auth-header .fa-icon {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Form Styles */
+.form-floating {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-floating input,
+.form-floating select,
+.form-floating textarea {
+    border: 2px solid rgba(233, 236, 239, 0.8) !important;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem;
+    padding: 1rem 0.75rem !important;
+    height: auto !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(5px);
+}
+
+.form-floating input:focus,
+.form-floating select:focus,
+.form-floating textarea:focus {
+    border-color: #667eea !important;
+    box-shadow:
+        0 0 0 0.2rem rgba(102, 126, 234, 0.25),
+        0 4px 12px rgba(102, 126, 234, 0.15) !important;
+    outline: none !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-1px);
+}
+
+.form-floating label {
+    color: #6c757d;
+    font-weight: 500;
+    padding: 1rem 0.75rem;
+}
+
+.form-floating input:focus ~ label,
+.form-floating input:not(:placeholder-shown) ~ label,
+.form-floating select:focus ~ label,
+.form-floating select:not([value=""]) ~ label {
+    color: #667eea;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* Button Styles */
+.btn-auth {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 4px 15px rgba(102, 126, 234, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-auth::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-auth:hover::before {
+    left: 100%;
+}
+
+.btn-auth:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 8px 25px rgba(102, 126, 234, 0.5),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+.btn-auth:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.5);
+    color: white;
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 10px !important;
+    border: none !important;
+    margin-bottom: 20px;
+    animation: slideDown 0.3s ease-out;
+}
+
+/* Form Check Styles */
+.form-check {
+    margin-bottom: 20px;
+}
+
+.form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.form-check-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Link Styles */
+.auth-link {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.auth-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+    color: #5a6fd8;
+}
+
+/* Required Field Indicator */
+.required-field {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Error Styles */
+.text-danger {
+    color: #e74c3c !important;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Face Recognition Demo */
+.face-demo {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #e9ecef;
+}
+
+.face-demo .fa-icon {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.face-demo h5 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.face-demo p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container,
+    .register-container {
+        margin: 10px;
+        padding: 30px 20px;
+    }
+    
+    .auth-header h1 {
+        font-size: 2rem;
+    }
+    
+    .auth-header .fa-icon {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container,
+    .register-container {
+        padding: 20px 15px;
+    }
+    
+    .auth-header h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Loading State */
+.btn-auth:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-auth.loading::after {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+    border: 2px solid transparent;
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Focus visible for accessibility */
+.btn-auth:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.form-floating input:focus-visible,
+.form-floating select:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Form validation styles */
+.form-floating input.is-valid,
+.form-floating select.is-valid {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+.form-floating input.is-invalid,
+.form-floating select.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.field-error {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #dc3545;
+}
+
+/* Password strength indicators */
+.form-floating input[name="password1"].weak {
+    border-left: 4px solid #dc3545;
+}
+
+.form-floating input[name="password1"].medium {
+    border-left: 4px solid #ffc107;
+}
+
+.form-floating input[name="password1"].strong {
+    border-left: 4px solid #28a745;
+}
+
+/* Enhanced hover effects */
+.form-floating:hover input,
+.form-floating:hover select {
+    border-color: #667eea;
+    transition: border-color 0.3s ease;
+}
+
+/* Better spacing for error messages */
+.form-floating + .field-error {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* Improved button states */
+.btn-auth:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading spinner animation */
+@keyframes buttonSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.btn-auth .fa-spinner {
+    animation: buttonSpin 1s linear infinite;
+}
+
+/* Smooth transitions for all interactive elements */
+.form-floating input,
+.form-floating select,
+.btn-auth,
+.auth-link a {
+    transition: all 0.3s ease;
+}
+
+/* Enhanced focus states */
+.form-floating input:focus,
+.form-floating select:focus {
+    transform: scale(1.01);
+    z-index: 2;
+    position: relative;
+}
+
+/* Better mobile responsiveness */
+@media (max-width: 480px) {
+    .form-floating input,
+    .form-floating select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .btn-auth {
+        padding: 14px 25px;
+        font-size: 1.1rem;
+    }
+}
