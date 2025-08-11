@@ -1,0 +1,607 @@
+{% extends 'base.html' %}
+
+{% block title %}Attendance History - Face Recognition Attendance System{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<a href="{% url 'attendance:check' %}">Attendance</a>
+<i class="fas fa-chevron-right mx-2"></i>
+<span>History</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .history-header {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .history-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
+    }
+    
+    .filters-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .attendance-table {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    .table-header {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 1.5rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .table {
+        margin-bottom: 0;
+    }
+    
+    .table th {
+        border-top: none;
+        font-weight: 600;
+        color: #495057;
+        background: #f8f9fa;
+        padding: 1rem;
+    }
+    
+    .table td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-top: 1px solid #f0f0f0;
+    }
+    
+    .table tbody tr:hover {
+        background: #f8f9fa;
+    }
+    
+    .status-badge {
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .status-present {
+        background: #d4edda;
+        color: #155724;
+    }
+    
+    .status-absent {
+        background: #f8d7da;
+        color: #721c24;
+    }
+    
+    .status-late {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .status-partial {
+        background: #d1ecf1;
+        color: #0c5460;
+    }
+    
+    .time-display {
+        font-family: 'Courier New', monospace;
+        font-weight: 500;
+        color: #495057;
+    }
+    
+    .working-hours {
+        font-weight: 600;
+        color: #28a745;
+    }
+    
+    .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .summary-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid transparent;
+    }
+    
+    .summary-card.present {
+        border-left-color: #28a745;
+    }
+    
+    .summary-card.absent {
+        border-left-color: #dc3545;
+    }
+    
+    .summary-card.late {
+        border-left-color: #ffc107;
+    }
+    
+    .summary-card.hours {
+        border-left-color: #17a2b8;
+    }
+    
+    .summary-value {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    
+    .summary-value.present {
+        color: #28a745;
+    }
+    
+    .summary-value.absent {
+        color: #dc3545;
+    }
+    
+    .summary-value.late {
+        color: #ffc107;
+    }
+    
+    .summary-value.hours {
+        color: #17a2b8;
+    }
+    
+    .summary-label {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+    
+    .export-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 1.5rem;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+    
+    .calendar-widget {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .calendar-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .calendar-day.header {
+        font-weight: 600;
+        color: #6c757d;
+        cursor: default;
+    }
+    
+    .calendar-day.present {
+        background: #d4edda;
+        color: #155724;
+    }
+    
+    .calendar-day.absent {
+        background: #f8d7da;
+        color: #721c24;
+    }
+    
+    .calendar-day.late {
+        background: #fff3cd;
+        color: #856404;
+    }
+    
+    .calendar-day.today {
+        border: 2px solid #667eea;
+        font-weight: bold;
+    }
+    
+    .calendar-day:hover:not(.header) {
+        transform: scale(1.1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="history-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2><i class="fas fa-history me-2"></i>Attendance History</h2>
+            <p class="mb-0">View and track your attendance records</p>
+        </div>
+        <div>
+            <a href="#" class="export-btn" onclick="exportAttendance()">
+                <i class="fas fa-download"></i>
+                Export Data
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="summary-cards">
+    <div class="summary-card present">
+        <div class="summary-value present">22</div>
+        <div class="summary-label">Present Days</div>
+    </div>
+    <div class="summary-card absent">
+        <div class="summary-value absent">1</div>
+        <div class="summary-label">Absent Days</div>
+    </div>
+    <div class="summary-card late">
+        <div class="summary-value late">3</div>
+        <div class="summary-label">Late Days</div>
+    </div>
+    <div class="summary-card hours">
+        <div class="summary-value hours">176h</div>
+        <div class="summary-label">Total Hours</div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Filters -->
+    <div class="col-lg-8">
+        <div class="filters-card">
+            <h5 class="mb-3"><i class="fas fa-filter me-2"></i>Filters</h5>
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="startDate" name="start_date" 
+                               value="{{ request.GET.start_date }}">
+                        <label for="startDate">Start Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="endDate" name="end_date" 
+                               value="{{ request.GET.end_date }}">
+                        <label for="endDate">End Date</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <select class="form-select" id="status" name="status">
+                            <option value="">All Status</option>
+                            <option value="present" {% if request.GET.status == 'present' %}selected{% endif %}>Present</option>
+                            <option value="absent" {% if request.GET.status == 'absent' %}selected{% endif %}>Absent</option>
+                            <option value="late" {% if request.GET.status == 'late' %}selected{% endif %}>Late</option>
+                            <option value="partial" {% if request.GET.status == 'partial' %}selected{% endif %}>Partial</option>
+                        </select>
+                        <label for="status">Status</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-2"></i>Apply Filters
+                    </button>
+                    <a href="{% url 'attendance:history' %}" class="btn btn-outline-secondary ms-2">
+                        <i class="fas fa-times me-2"></i>Clear
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Attendance Table -->
+        <div class="attendance-table">
+            <div class="table-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Attendance Records</h5>
+                    <span class="text-muted">{{ attendance_records.count }} records found</span>
+                </div>
+            </div>
+            
+            {% if attendance_records %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Working Hours</th>
+                                <th>Status</th>
+                                <th>Method</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in attendance_records %}
+                            <tr>
+                                <td>
+                                    <strong>{{ record.date|date:"M d, Y" }}</strong><br>
+                                    <small class="text-muted">{{ record.date|date:"l" }}</small>
+                                </td>
+                                <td>
+                                    {% if record.check_in_time %}
+                                        <span class="time-display">{{ record.check_in_time|time:"H:i" }}</span>
+                                    {% else %}
+                                        <span class="text-muted">--:--</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if record.check_out_time %}
+                                        <span class="time-display">{{ record.check_out_time|time:"H:i" }}</span>
+                                    {% else %}
+                                        <span class="text-muted">--:--</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if record.working_hours %}
+                                        <span class="working-hours">{{ record.working_hours }}h</span>
+                                    {% else %}
+                                        <span class="text-muted">0h</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="status-badge status-{{ record.status }}">
+                                        <i class="fas fa-circle"></i>
+                                        {{ record.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if record.method == 'face_recognition' %}
+                                        <i class="fas fa-camera text-primary" title="Face Recognition"></i>
+                                    {% else %}
+                                        <i class="fas fa-keyboard text-secondary" title="Manual Entry"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                {% if is_paginated %}
+                    <div class="pagination-wrapper">
+                        <nav aria-label="Attendance pagination">
+                            <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">First</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Previous</a>
+                                    </li>
+                                {% endif %}
+                                
+                                <li class="page-item active">
+                                    <span class="page-link">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                                </li>
+                                
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Next</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.start_date %}&start_date={{ request.GET.start_date }}{% endif %}{% if request.GET.end_date %}&end_date={{ request.GET.end_date }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">Last</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-calendar-times"></i>
+                    <h4>No Attendance Records</h4>
+                    <p>No attendance records found for the selected criteria.</p>
+                    <a href="{% url 'attendance:check' %}" class="btn btn-primary">
+                        <i class="fas fa-clock me-2"></i>Mark Attendance
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Calendar Widget -->
+    <div class="col-lg-4">
+        <div class="calendar-widget">
+            <div class="calendar-header">
+                <h5><i class="fas fa-calendar-alt me-2"></i>Monthly View</h5>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-outline-primary" onclick="previousMonth()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" onclick="nextMonth()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Calendar will be generated by JavaScript -->
+            </div>
+            
+            <div class="mt-3">
+                <small class="d-flex align-items-center mb-1">
+                    <span class="calendar-day present me-2" style="width: 16px; height: 16px;"></span>
+                    Present
+                </small>
+                <small class="d-flex align-items-center mb-1">
+                    <span class="calendar-day late me-2" style="width: 16px; height: 16px;"></span>
+                    Late
+                </small>
+                <small class="d-flex align-items-center">
+                    <span class="calendar-day absent me-2" style="width: 16px; height: 16px;"></span>
+                    Absent
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+
+document.addEventListener('DOMContentLoaded', function() {
+    generateCalendar();
+});
+
+function generateCalendar() {
+    const calendarGrid = document.getElementById('calendarGrid');
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+    calendarGrid.innerHTML = '';
+    
+    // Add day headers
+    const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    dayHeaders.forEach(day => {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day header';
+        dayElement.textContent = day;
+        calendarGrid.appendChild(dayElement);
+    });
+    
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < firstDay; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.className = 'calendar-day';
+        calendarGrid.appendChild(emptyDay);
+    }
+    
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        dayElement.textContent = day;
+        
+        // Simulate attendance status (in real app, this would come from server)
+        const random = Math.random();
+        if (random > 0.8) {
+            dayElement.classList.add('absent');
+        } else if (random > 0.7) {
+            dayElement.classList.add('late');
+        } else if (random > 0.2) {
+            dayElement.classList.add('present');
+        }
+        
+        // Mark today
+        const today = new Date();
+        if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+            dayElement.classList.add('today');
+        }
+        
+        calendarGrid.appendChild(dayElement);
+    }
+}
+
+function previousMonth() {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    generateCalendar();
+}
+
+function nextMonth() {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    generateCalendar();
+}
+
+function exportAttendance() {
+    // Simulate export functionality
+    alert('Export functionality will be implemented to generate CSV/PDF reports');
+}
+
+// Auto-submit form on filter change
+document.addEventListener('DOMContentLoaded', function() {
+    const filterInputs = document.querySelectorAll('#startDate, #endDate, #status');
+    filterInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Auto-submit after a short delay to allow for date range selection
+            setTimeout(() => {
+                this.form.submit();
+            }, 500);
+        });
+    });
+});
+</script>
+{% endblock %}

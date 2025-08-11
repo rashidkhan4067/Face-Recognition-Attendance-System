@@ -1,0 +1,484 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if object %}Edit User - {{ object.employee_id }}{% else %}Create New User{% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<a href="{% url 'authentication:user_list' %}">Users</a>
+<i class="fas fa-chevron-right mx-2"></i>
+<span>{% if object %}Edit User{% else %}Create User{% endif %}</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .form-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    
+    .section-title {
+        color: #1e293b;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .form-floating {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-floating input,
+    .form-floating select,
+    .form-floating textarea {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-floating input:focus,
+    .form-floating select:focus,
+    .form-floating textarea:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .form-check {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    
+    .form-check:hover {
+        border-color: #667eea;
+        background: #f1f5f9;
+    }
+    
+    .form-check-input:checked {
+        background-color: #667eea;
+        border-color: #667eea;
+    }
+    
+    .form-check-label {
+        font-weight: 500;
+        color: #1e293b;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
+    
+    .btn-cancel {
+        background: #6c757d;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .btn-cancel:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .error-message {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border-left: 4px solid #ef4444;
+    }
+    
+    .help-text {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-top: 0.5rem;
+    }
+    
+    .required-field::after {
+        content: ' *';
+        color: #ef4444;
+        font-weight: bold;
+    }
+    
+    .profile-upload {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .profile-preview {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #e2e8f0;
+        margin-bottom: 1rem;
+    }
+    
+    .profile-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: #64748b;
+        border: 4px solid #e2e8f0;
+        margin: 0 auto 1rem;
+    }
+    
+    .upload-btn {
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .upload-btn:hover {
+        background: #5a67d8;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="form-header">
+    <h2>
+        <i class="fas fa-{% if object %}edit{% else %}plus{% endif %} me-2"></i>
+        {% if object %}Edit User - {{ object.employee_id }}{% else %}Create New User{% endif %}
+    </h2>
+    <p class="mb-0">
+        {% if object %}Update user information and settings{% else %}Add a new user to the system{% endif %}
+    </p>
+</div>
+
+<!-- Form Container -->
+<div class="form-container">
+    <form method="post" enctype="multipart/form-data" id="userForm">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="error-message">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        
+        <!-- Profile Picture Section -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-camera"></i>
+                Profile Picture
+            </h5>
+            
+            <div class="profile-upload">
+                {% if object.profile_picture %}
+                    <img src="{{ object.profile_picture.url }}" alt="Profile" class="profile-preview" id="profilePreview">
+                {% else %}
+                    <div class="profile-placeholder" id="profilePlaceholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+                
+                <div>
+                    <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" style="display: none;">
+                    <button type="button" class="upload-btn" onclick="document.getElementById('profilePictureInput').click()">
+                        <i class="fas fa-upload me-1"></i>Choose Photo
+                    </button>
+                </div>
+                <div class="help-text">Recommended: Square image, max 2MB</div>
+            </div>
+        </div>
+        
+        <!-- Basic Information -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-user"></i>
+                Basic Information
+            </h5>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.username }}
+                        <label for="{{ form.username.id_for_label }}" class="required-field">Username</label>
+                        {% if form.username.errors %}
+                            <div class="error-message">{{ form.username.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.employee_id }}
+                        <label for="{{ form.employee_id.id_for_label }}" class="required-field">Employee ID</label>
+                        {% if form.employee_id.errors %}
+                            <div class="error-message">{{ form.employee_id.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.first_name }}
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {% if form.first_name.errors %}
+                            <div class="error-message">{{ form.first_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.last_name }}
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {% if form.last_name.errors %}
+                            <div class="error-message">{{ form.last_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-floating">
+                {{ form.email }}
+                <label for="{{ form.email.id_for_label }}" class="required-field">Email Address</label>
+                {% if form.email.errors %}
+                    <div class="error-message">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="form-floating">
+                {{ form.phone_number }}
+                <label for="{{ form.phone_number.id_for_label }}">Phone Number</label>
+                {% if form.phone_number.errors %}
+                    <div class="error-message">{{ form.phone_number.errors }}</div>
+                {% endif %}
+                <div class="help-text">Format: +1234567890</div>
+            </div>
+        </div>
+        
+        <!-- Work Information -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-briefcase"></i>
+                Work Information
+            </h5>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.department }}
+                        <label for="{{ form.department.id_for_label }}">Department</label>
+                        {% if form.department.errors %}
+                            <div class="error-message">{{ form.department.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.role }}
+                        <label for="{{ form.role.id_for_label }}" class="required-field">Role</label>
+                        {% if form.role.errors %}
+                            <div class="error-message">{{ form.role.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Password Section (for new users) -->
+        {% if not object %}
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-lock"></i>
+                Password
+            </h5>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.password1 }}
+                        <label for="{{ form.password1.id_for_label }}" class="required-field">Password</label>
+                        {% if form.password1.errors %}
+                            <div class="error-message">{{ form.password1.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        {{ form.password2 }}
+                        <label for="{{ form.password2.id_for_label }}" class="required-field">Confirm Password</label>
+                        {% if form.password2.errors %}
+                            <div class="error-message">{{ form.password2.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Permissions -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-shield-alt"></i>
+                Permissions
+            </h5>
+            
+            <div class="form-check">
+                {{ form.is_active }}
+                <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                    <strong>Active User</strong>
+                    <div class="help-text">User can log in and access the system</div>
+                </label>
+            </div>
+            
+            {% if user.is_superuser %}
+            <div class="form-check">
+                {{ form.is_staff }}
+                <label class="form-check-label" for="{{ form.is_staff.id_for_label }}">
+                    <strong>Staff Status</strong>
+                    <div class="help-text">User can access the admin interface</div>
+                </label>
+            </div>
+            
+            <div class="form-check">
+                {{ form.is_superuser }}
+                <label class="form-check-label" for="{{ form.is_superuser.id_for_label }}">
+                    <strong>Superuser Status</strong>
+                    <div class="help-text">User has all permissions without explicitly assigning them</div>
+                </label>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Form Actions -->
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'authentication:user_list' %}" class="btn-cancel">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save me-2"></i>
+                    {% if object %}Update User{% else %}Create User{% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Profile picture preview
+    const profileInput = document.getElementById('profilePictureInput');
+    const profilePreview = document.getElementById('profilePreview');
+    const profilePlaceholder = document.getElementById('profilePlaceholder');
+    
+    profileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (profilePreview) {
+                    profilePreview.src = e.target.result;
+                } else {
+                    // Create new preview image
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'profile-preview';
+                    img.id = 'profilePreview';
+                    profilePlaceholder.parentNode.replaceChild(img, profilePlaceholder);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    
+    // Form validation
+    const form = document.getElementById('userForm');
+    form.addEventListener('submit', function(e) {
+        const submitBtn = form.querySelector('.btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+    });
+    
+    // Auto-generate username from first and last name
+    const firstNameInput = document.getElementById('{{ form.first_name.id_for_label }}');
+    const lastNameInput = document.getElementById('{{ form.last_name.id_for_label }}');
+    const usernameInput = document.getElementById('{{ form.username.id_for_label }}');
+    
+    function generateUsername() {
+        if (firstNameInput.value && lastNameInput.value && !usernameInput.value) {
+            const username = (firstNameInput.value + '.' + lastNameInput.value).toLowerCase();
+            usernameInput.value = username;
+        }
+    }
+    
+    if (firstNameInput && lastNameInput && usernameInput) {
+        firstNameInput.addEventListener('blur', generateUsername);
+        lastNameInput.addEventListener('blur', generateUsername);
+    }
+});
+</script>
+{% endblock %}

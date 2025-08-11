@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if object %}Edit Department - {{ object.name }}{% else %}Create New Department{% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<a href="{% url 'authentication:department_list' %}">Departments</a>
+<i class="fas fa-chevron-right mx-2"></i>
+<span>{% if object %}Edit Department{% else %}Create Department{% endif %}</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .form-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .form-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+    
+    .section-title {
+        color: #1e293b;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .form-floating {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-floating input,
+    .form-floating select,
+    .form-floating textarea {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-floating input:focus,
+    .form-floating select:focus,
+    .form-floating textarea:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+    }
+    
+    .form-floating textarea {
+        min-height: 120px;
+    }
+    
+    .form-check {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        transition: all 0.3s ease;
+    }
+    
+    .form-check:hover {
+        border-color: #10b981;
+        background: #f0fdf4;
+    }
+    
+    .form-check-input:checked {
+        background-color: #10b981;
+        border-color: #10b981;
+    }
+    
+    .form-check-label {
+        font-weight: 500;
+        color: #1e293b;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
+    
+    .btn-cancel {
+        background: #6c757d;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .btn-cancel:hover {
+        background: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .error-message {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border-left: 4px solid #ef4444;
+    }
+    
+    .help-text {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-top: 0.5rem;
+    }
+    
+    .required-field::after {
+        content: ' *';
+        color: #ef4444;
+        font-weight: bold;
+    }
+    
+    .icon-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .icon-option {
+        width: 60px;
+        height: 60px;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .icon-option:hover {
+        border-color: #10b981;
+        background: #f0fdf4;
+    }
+    
+    .icon-option.selected {
+        border-color: #10b981;
+        background: #10b981;
+        color: white;
+    }
+    
+    .icon-option i {
+        font-size: 1.5rem;
+    }
+    
+    .preview-card {
+        background: #f8fafc;
+        border: 2px solid #e2e8f0;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .preview-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #10b981, #059669);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+    }
+    
+    .preview-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+    
+    .preview-description {
+        color: #64748b;
+        font-size: 0.875rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="form-header">
+    <h2>
+        <i class="fas fa-{% if object %}edit{% else %}plus{% endif %} me-2"></i>
+        {% if object %}Edit Department - {{ object.name }}{% else %}Create New Department{% endif %}
+    </h2>
+    <p class="mb-0">
+        {% if object %}Update department information and settings{% else %}Add a new department to organize your team{% endif %}
+    </p>
+</div>
+
+<!-- Form Container -->
+<div class="form-container">
+    <form method="post" id="departmentForm">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="error-message">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        
+        <!-- Basic Information -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-info-circle"></i>
+                Basic Information
+            </h5>
+            
+            <div class="form-floating">
+                {{ form.name }}
+                <label for="{{ form.name.id_for_label }}" class="required-field">Department Name</label>
+                {% if form.name.errors %}
+                    <div class="error-message">{{ form.name.errors }}</div>
+                {% endif %}
+                <div class="help-text">Enter a unique name for the department</div>
+            </div>
+            
+            <div class="form-floating">
+                {{ form.description }}
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {% if form.description.errors %}
+                    <div class="error-message">{{ form.description.errors }}</div>
+                {% endif %}
+                <div class="help-text">Provide a brief description of the department's purpose and responsibilities</div>
+            </div>
+        </div>
+        
+        <!-- Department Icon -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-palette"></i>
+                Department Icon
+            </h5>
+            
+            <p class="text-muted mb-3">Choose an icon to represent this department</p>
+            
+            <input type="hidden" name="icon" id="selectedIcon" value="building">
+            
+            <div class="icon-selector">
+                <div class="icon-option selected" data-icon="building">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="icon-option" data-icon="users">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="icon-option" data-icon="cogs">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="icon-option" data-icon="chart-line">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="icon-option" data-icon="laptop-code">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="icon-option" data-icon="handshake">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="icon-option" data-icon="shield-alt">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="icon-option" data-icon="heart">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="icon-option" data-icon="graduation-cap">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="icon-option" data-icon="tools">
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-cog"></i>
+                Settings
+            </h5>
+            
+            <div class="form-check">
+                {{ form.is_active }}
+                <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                    <strong>Active Department</strong>
+                    <div class="help-text">Active departments can have employees assigned and appear in reports</div>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Preview -->
+        <div class="form-section">
+            <h5 class="section-title">
+                <i class="fas fa-eye"></i>
+                Preview
+            </h5>
+            
+            <div class="preview-card" id="departmentPreview">
+                <div class="preview-icon" id="previewIcon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="preview-name" id="previewName">Department Name</div>
+                <div class="preview-description" id="previewDescription">Department description will appear here</div>
+            </div>
+        </div>
+        
+        <!-- Form Actions -->
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'authentication:department_list' %}" class="btn-cancel">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save me-2"></i>
+                    {% if object %}Update Department{% else %}Create Department{% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Icon selection
+    const iconOptions = document.querySelectorAll('.icon-option');
+    const selectedIconInput = document.getElementById('selectedIcon');
+    const previewIcon = document.getElementById('previewIcon');
+    
+    iconOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove selected class from all options
+            iconOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            this.classList.add('selected');
+            
+            // Update hidden input and preview
+            const iconClass = this.getAttribute('data-icon');
+            selectedIconInput.value = iconClass;
+            previewIcon.innerHTML = `<i class="fas fa-${iconClass}"></i>`;
+        });
+    });
+    
+    // Live preview updates
+    const nameInput = document.getElementById('{{ form.name.id_for_label }}');
+    const descriptionInput = document.getElementById('{{ form.description.id_for_label }}');
+    const previewName = document.getElementById('previewName');
+    const previewDescription = document.getElementById('previewDescription');
+    
+    function updatePreview() {
+        previewName.textContent = nameInput.value || 'Department Name';
+        previewDescription.textContent = descriptionInput.value || 'Department description will appear here';
+    }
+    
+    if (nameInput) {
+        nameInput.addEventListener('input', updatePreview);
+        // Initialize with existing value
+        updatePreview();
+    }
+    
+    if (descriptionInput) {
+        descriptionInput.addEventListener('input', updatePreview);
+    }
+    
+    // Form validation
+    const form = document.getElementById('departmentForm');
+    form.addEventListener('submit', function(e) {
+        const submitBtn = form.querySelector('.btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+    });
+    
+    // Auto-focus on name input
+    if (nameInput) {
+        nameInput.focus();
+    }
+});
+</script>
+{% endblock %}

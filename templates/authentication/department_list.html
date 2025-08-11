@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+
+{% block title %}Department Management - Face Recognition Attendance System{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<span>Departments</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .departments-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .departments-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #10b981;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .stat-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #10b981;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .department-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .department-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    
+    .department-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        border-color: #10b981;
+    }
+    
+    .department-header {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        padding: 1.5rem;
+        border-bottom: 1px solid #e2e8f0;
+        position: relative;
+    }
+    
+    .department-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #10b981, #059669);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .department-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+    
+    .department-description {
+        color: #64748b;
+        font-size: 0.875rem;
+        line-height: 1.5;
+    }
+    
+    .department-body {
+        padding: 1.5rem;
+    }
+    
+    .department-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .mini-stat {
+        text-align: center;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 10px;
+    }
+    
+    .mini-stat-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #10b981;
+        margin-bottom: 0.25rem;
+    }
+    
+    .mini-stat-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        font-weight: 500;
+    }
+    
+    .department-actions {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+    }
+    
+    .action-btn {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        border: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    
+    .btn-edit {
+        background: #667eea;
+        color: white;
+    }
+    
+    .btn-edit:hover {
+        background: #5a67d8;
+        color: white;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+    
+    .btn-view {
+        background: #e2e8f0;
+        color: #64748b;
+    }
+    
+    .btn-view:hover {
+        background: #cbd5e1;
+        color: #475569;
+        text-decoration: none;
+        transform: translateY(-1px);
+    }
+    
+    .add-department-card {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border: 2px dashed #cbd5e1;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: #64748b;
+        min-height: 280px;
+    }
+    
+    .add-department-card:hover {
+        border-color: #10b981;
+        background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        color: #059669;
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+    
+    .add-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .add-department-card:hover .add-icon {
+        background: #10b981;
+        color: white;
+    }
+    
+    .search-filter {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .search-input {
+        border: 2px solid #e2e8f0;
+        border-radius: 25px;
+        padding: 0.75rem 1.5rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .search-input:focus {
+        outline: none;
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 3rem;
+        color: #64748b;
+    }
+    
+    .empty-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="departments-header">
+    <div class="d-flex justify-content-between align-items-center" style="position: relative; z-index: 2;">
+        <div>
+            <h2><i class="fas fa-building me-2"></i>Department Management</h2>
+            <p class="mb-0">Organize and manage company departments</p>
+        </div>
+        <div>
+            <a href="{% url 'authentication:department_create' %}" class="btn btn-light btn-lg">
+                <i class="fas fa-plus me-2"></i>Add Department
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value">{{ departments.count }}</div>
+        <div class="stat-label">Total Departments</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ total_employees|default:0 }}</div>
+        <div class="stat-label">Total Employees</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ active_departments|default:departments.count }}</div>
+        <div class="stat-label">Active Departments</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value">{{ avg_employees_per_dept|default:0 }}</div>
+        <div class="stat-label">Avg. Employees/Dept</div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="search-filter">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <input type="text" class="search-input" placeholder="Search departments..." id="departmentSearch">
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-filter me-2"></i>Filter
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-filter="all">All Departments</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="active">Active Only</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="large">Large Departments (10+ employees)</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="small">Small Departments (< 10 employees)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Departments Grid -->
+<div class="department-grid" id="departmentGrid">
+    <!-- Add New Department Card -->
+    <a href="{% url 'authentication:department_create' %}" class="add-department-card">
+        <div class="add-icon">
+            <i class="fas fa-plus"></i>
+        </div>
+        <h5>Add New Department</h5>
+        <p class="mb-0">Create a new department to organize your team</p>
+    </a>
+    
+    <!-- Department Cards -->
+    {% for department in departments %}
+    <div class="department-card" data-department-name="{{ department.name|lower }}">
+        <div class="department-header">
+            <div class="department-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="department-name">{{ department.name }}</div>
+            <div class="department-description">
+                {{ department.description|default:"No description available"|truncatechars:100 }}
+            </div>
+        </div>
+        
+        <div class="department-body">
+            <div class="department-stats">
+                <div class="mini-stat">
+                    <div class="mini-stat-value">{{ department.user_count|default:0 }}</div>
+                    <div class="mini-stat-label">Employees</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">95%</div>
+                    <div class="mini-stat-label">Attendance</div>
+                </div>
+                <div class="mini-stat">
+                    <div class="mini-stat-value">
+                        {% if department.is_active %}
+                            <i class="fas fa-check text-success"></i>
+                        {% else %}
+                            <i class="fas fa-times text-danger"></i>
+                        {% endif %}
+                    </div>
+                    <div class="mini-stat-label">Status</div>
+                </div>
+            </div>
+            
+            <div class="department-actions">
+                <a href="#" class="action-btn btn-view">
+                    <i class="fas fa-eye"></i>
+                    View
+                </a>
+                <a href="{% url 'authentication:department_edit' department.pk %}" class="action-btn btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <h4>No Departments Found</h4>
+            <p>Get started by creating your first department.</p>
+            <a href="{% url 'authentication:department_create' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus me-2"></i>Create Department
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Search functionality
+    const searchInput = document.getElementById('departmentSearch');
+    const departmentCards = document.querySelectorAll('.department-card[data-department-name]');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        departmentCards.forEach(card => {
+            const departmentName = card.getAttribute('data-department-name');
+            if (departmentName.includes(searchTerm)) {
+                card.style.display = 'block';
+                card.style.animation = 'fadeIn 0.3s ease-in-out';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+    
+    // Filter functionality
+    const filterItems = document.querySelectorAll('[data-filter]');
+    filterItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active filter
+            filterItems.forEach(f => f.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Apply filter (placeholder - would need backend implementation)
+            console.log('Applying filter:', filter);
+        });
+    });
+    
+    // Add hover effects
+    const cards = document.querySelectorAll('.department-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-4px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Animate cards on load
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.5s ease-out';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+
+// Add CSS animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}

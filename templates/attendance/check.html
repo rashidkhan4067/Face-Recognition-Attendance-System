@@ -1,0 +1,784 @@
+{% extends 'base.html' %}
+
+{% block title %}Attendance Check - Face Recognition Attendance System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .attendance-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .attendance-header {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 2rem 0;
+        margin: -20px -20px 30px -20px;
+        border-radius: 0 0 20px 20px;
+        text-align: center;
+    }
+    
+    .current-time {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .current-date {
+        font-size: 1.2rem;
+        opacity: 0.9;
+    }
+    
+    .attendance-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .method-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+    
+    .method-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .method-card.active {
+        border-color: #28a745;
+        background: linear-gradient(135deg, #f8fff9, #e8f5e8);
+    }
+    
+    .method-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .method-card:hover .method-icon {
+        transform: scale(1.1);
+    }
+    
+    .method-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+    
+    .method-description {
+        color: #6c757d;
+        margin-bottom: 1.5rem;
+    }
+    
+    .method-button {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .method-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
+    
+    .method-button:disabled {
+        background: #6c757d;
+        transform: none;
+        cursor: not-allowed;
+    }
+    
+    .face-recognition-section {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        display: none;
+    }
+    
+    .face-recognition-section.active {
+        display: block;
+    }
+    
+    .webcam-container {
+        position: relative;
+        background: #000;
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        aspect-ratio: 4/3;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .webcam-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .recognition-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .recognition-status {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        font-weight: 500;
+        text-align: center;
+    }
+    
+    .face-detection-box {
+        position: absolute;
+        border: 3px solid #28a745;
+        border-radius: 8px;
+        background: rgba(40, 167, 69, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .face-detection-box.recognizing {
+        border-color: #ffc107;
+        background: rgba(255, 193, 7, 0.1);
+        animation: pulse 1s infinite;
+    }
+    
+    .face-detection-box.recognized {
+        border-color: #28a745;
+        background: rgba(40, 167, 69, 0.2);
+        animation: success 0.5s ease;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes success {
+        0% { background: rgba(40, 167, 69, 0.1); }
+        50% { background: rgba(40, 167, 69, 0.5); }
+        100% { background: rgba(40, 167, 69, 0.2); }
+    }
+    
+    .manual-form {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        display: none;
+    }
+    
+    .manual-form.active {
+        display: block;
+    }
+    
+    .form-floating {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-floating input,
+    .form-floating select {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-floating input:focus,
+    .form-floating select:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+    
+    .attendance-status {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .status-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .status-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #28a745;
+    }
+    
+    .status-value {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #28a745;
+        margin-bottom: 0.5rem;
+    }
+    
+    .status-label {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+    
+    .recent-activity {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+    }
+    
+    .activity-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .activity-item:last-child {
+        border-bottom: none;
+    }
+    
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .activity-icon.check-in {
+        background: #28a745;
+    }
+    
+    .activity-icon.check-out {
+        background: #dc3545;
+    }
+    
+    .activity-content {
+        flex: 1;
+    }
+    
+    .activity-title {
+        font-weight: 500;
+        color: #2c3e50;
+        margin-bottom: 0.25rem;
+    }
+    
+    .activity-time {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+    
+    .success-animation {
+        text-align: center;
+        padding: 3rem;
+        display: none;
+    }
+    
+    .success-animation.show {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        background: #28a745;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        margin: 0 auto 1rem;
+        animation: bounceIn 0.6s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes bounceIn {
+        0% { transform: scale(0); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="attendance-container">
+        <!-- Header with Current Time -->
+        <div class="attendance-header">
+            <div class="current-time" id="currentTime">--:--:--</div>
+            <div class="current-date" id="currentDate">Loading...</div>
+            <p class="mt-3 mb-0">Mark your attendance using face recognition or manual entry</p>
+        </div>
+
+        <!-- Current Status -->
+        <div class="attendance-status">
+            <h5 class="mb-3"><i class="fas fa-chart-line me-2"></i>Today's Status</h5>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value" id="checkInTime">--:--</div>
+                    <div class="status-label">Check In Time</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="checkOutTime">--:--</div>
+                    <div class="status-label">Check Out Time</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="workingHours">0h 0m</div>
+                    <div class="status-label">Working Hours</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="attendanceStatus">Absent</div>
+                    <div class="status-label">Status</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Methods -->
+        <div class="attendance-methods">
+            <!-- Face Recognition Method -->
+            <div class="method-card" id="faceMethodCard">
+                <div class="method-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <div class="method-title">Face Recognition</div>
+                <div class="method-description">Quick and secure attendance marking using your face</div>
+                <button type="button" class="method-button" id="faceMethodBtn" 
+                        {% if not user.is_face_enrolled %}disabled{% endif %}>
+                    {% if user.is_face_enrolled %}
+                        <i class="fas fa-camera me-2"></i>Use Face Recognition
+                    {% else %}
+                        <i class="fas fa-exclamation-triangle me-2"></i>Face Not Enrolled
+                    {% endif %}
+                </button>
+                {% if not user.is_face_enrolled %}
+                    <div class="mt-2">
+                        <a href="{% url 'face_recognition:enrollment' %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-plus me-1"></i>Enroll Face
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Manual Entry Method -->
+            <div class="method-card" id="manualMethodCard">
+                <div class="method-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <div class="method-title">Manual Entry</div>
+                <div class="method-description">Traditional attendance marking with employee ID</div>
+                <button type="button" class="method-button" id="manualMethodBtn">
+                    <i class="fas fa-keyboard me-2"></i>Manual Entry
+                </button>
+            </div>
+        </div>
+
+        <!-- Face Recognition Section -->
+        <div class="face-recognition-section" id="faceRecognitionSection">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5><i class="fas fa-camera me-2"></i>Face Recognition</h5>
+                <button type="button" class="btn btn-outline-secondary" id="closeFaceBtn">
+                    <i class="fas fa-times me-1"></i>Close
+                </button>
+            </div>
+            
+            <div class="webcam-container">
+                <video id="faceVideo" class="webcam-video" autoplay muted playsinline></video>
+                <div class="recognition-overlay" id="recognitionOverlay">
+                    <div class="recognition-status" id="recognitionStatus">
+                        <i class="fas fa-camera me-2"></i>Click "Start Recognition" to begin
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button type="button" class="btn btn-success btn-lg me-3" id="startRecognitionBtn">
+                    <i class="fas fa-play me-2"></i>Start Recognition
+                </button>
+                <button type="button" class="btn btn-danger btn-lg" id="stopRecognitionBtn" style="display: none;">
+                    <i class="fas fa-stop me-2"></i>Stop Recognition
+                </button>
+            </div>
+        </div>
+
+        <!-- Manual Entry Section -->
+        <div class="manual-form" id="manualForm">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5><i class="fas fa-keyboard me-2"></i>Manual Attendance Entry</h5>
+                <button type="button" class="btn btn-outline-secondary" id="closeManualBtn">
+                    <i class="fas fa-times me-1"></i>Close
+                </button>
+            </div>
+            
+            <form id="manualAttendanceForm">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="employeeId" name="employee_id" 
+                                   placeholder="Employee ID" value="{{ user.employee_id }}" required>
+                            <label for="employeeId">Employee ID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select class="form-select" id="attendanceType" name="attendance_type" required>
+                                <option value="">Select Action</option>
+                                <option value="check_in">Check In</option>
+                                <option value="check_out">Check Out</option>
+                            </select>
+                            <label for="attendanceType">Action</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-floating">
+                    <textarea class="form-control" id="notes" name="notes" 
+                              placeholder="Notes (optional)" style="height: 100px;"></textarea>
+                    <label for="notes">Notes (optional)</label>
+                </div>
+                
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save me-2"></i>Submit Attendance
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Animation -->
+        <div class="success-animation" id="successAnimation">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h4 class="text-success mb-3">Attendance Marked Successfully!</h4>
+            <p class="text-muted">Your attendance has been recorded.</p>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <h5 class="mb-3"><i class="fas fa-history me-2"></i>Recent Activity</h5>
+            <div id="recentActivityList">
+                <!-- Activity items will be loaded here -->
+                <div class="text-center text-muted py-3">
+                    <i class="fas fa-clock fa-2x mb-2"></i>
+                    <p>No recent activity</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+class AttendanceChecker {
+    constructor() {
+        this.video = null;
+        this.isRecognizing = false;
+        this.recognitionInterval = null;
+        
+        this.initializeElements();
+        this.bindEvents();
+        this.updateTime();
+        this.loadTodayStatus();
+        this.loadRecentActivity();
+        
+        // Update time every second
+        setInterval(() => this.updateTime(), 1000);
+    }
+    
+    initializeElements() {
+        this.faceMethodBtn = document.getElementById('faceMethodBtn');
+        this.manualMethodBtn = document.getElementById('manualMethodBtn');
+        this.faceRecognitionSection = document.getElementById('faceRecognitionSection');
+        this.manualForm = document.getElementById('manualForm');
+        this.faceVideo = document.getElementById('faceVideo');
+        this.startRecognitionBtn = document.getElementById('startRecognitionBtn');
+        this.stopRecognitionBtn = document.getElementById('stopRecognitionBtn');
+        this.recognitionStatus = document.getElementById('recognitionStatus');
+        this.successAnimation = document.getElementById('successAnimation');
+    }
+    
+    bindEvents() {
+        this.faceMethodBtn.addEventListener('click', () => this.showFaceRecognition());
+        this.manualMethodBtn.addEventListener('click', () => this.showManualForm());
+        
+        document.getElementById('closeFaceBtn').addEventListener('click', () => this.hideFaceRecognition());
+        document.getElementById('closeManualBtn').addEventListener('click', () => this.hideManualForm());
+        
+        this.startRecognitionBtn.addEventListener('click', () => this.startRecognition());
+        this.stopRecognitionBtn.addEventListener('click', () => this.stopRecognition());
+        
+        document.getElementById('manualAttendanceForm').addEventListener('submit', (e) => this.submitManualAttendance(e));
+    }
+    
+    updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', { 
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        const dateString = now.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        document.getElementById('currentTime').textContent = timeString;
+        document.getElementById('currentDate').textContent = dateString;
+    }
+    
+    showFaceRecognition() {
+        this.hideManualForm();
+        this.faceRecognitionSection.classList.add('active');
+        document.getElementById('faceMethodCard').classList.add('active');
+        document.getElementById('manualMethodCard').classList.remove('active');
+    }
+    
+    hideFaceRecognition() {
+        this.stopRecognition();
+        this.faceRecognitionSection.classList.remove('active');
+        document.getElementById('faceMethodCard').classList.remove('active');
+    }
+    
+    showManualForm() {
+        this.hideFaceRecognition();
+        this.manualForm.classList.add('active');
+        document.getElementById('manualMethodCard').classList.add('active');
+        document.getElementById('faceMethodCard').classList.remove('active');
+    }
+    
+    hideManualForm() {
+        this.manualForm.classList.remove('active');
+        document.getElementById('manualMethodCard').classList.remove('active');
+    }
+    
+    async startRecognition() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { 
+                    width: { ideal: 640 },
+                    height: { ideal: 480 },
+                    facingMode: 'user'
+                }
+            });
+            
+            this.faceVideo.srcObject = stream;
+            this.video = this.faceVideo;
+            
+            this.startRecognitionBtn.style.display = 'none';
+            this.stopRecognitionBtn.style.display = 'inline-block';
+            
+            this.isRecognizing = true;
+            this.updateRecognitionStatus('Scanning for face...', 'recognizing');
+            
+            // Start face recognition simulation
+            this.simulateFaceRecognition();
+            
+        } catch (error) {
+            console.error('Error accessing camera:', error);
+            this.updateRecognitionStatus('Unable to access camera', 'error');
+        }
+    }
+    
+    stopRecognition() {
+        if (this.video && this.video.srcObject) {
+            this.video.srcObject.getTracks().forEach(track => track.stop());
+            this.video.srcObject = null;
+        }
+        
+        this.isRecognizing = false;
+        if (this.recognitionInterval) {
+            clearInterval(this.recognitionInterval);
+        }
+        
+        this.startRecognitionBtn.style.display = 'inline-block';
+        this.stopRecognitionBtn.style.display = 'none';
+        
+        this.updateRecognitionStatus('Click "Start Recognition" to begin', 'waiting');
+    }
+    
+    simulateFaceRecognition() {
+        let attempts = 0;
+        this.recognitionInterval = setInterval(() => {
+            if (!this.isRecognizing) return;
+            
+            attempts++;
+            
+            if (attempts < 3) {
+                this.updateRecognitionStatus('Detecting face...', 'recognizing');
+            } else if (attempts < 5) {
+                this.updateRecognitionStatus('Recognizing...', 'recognizing');
+            } else {
+                // Simulate successful recognition
+                this.updateRecognitionStatus('Face recognized!', 'success');
+                setTimeout(() => {
+                    this.processAttendance('face_recognition');
+                }, 1000);
+                clearInterval(this.recognitionInterval);
+            }
+        }, 1000);
+    }
+    
+    updateRecognitionStatus(message, type) {
+        const icons = {
+            waiting: 'camera',
+            recognizing: 'search',
+            success: 'check',
+            error: 'exclamation-triangle'
+        };
+        
+        this.recognitionStatus.innerHTML = `<i class="fas fa-${icons[type]} me-2"></i>${message}`;
+    }
+    
+    async submitManualAttendance(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target);
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+        
+        try {
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            this.processAttendance('manual', {
+                employee_id: formData.get('employee_id'),
+                attendance_type: formData.get('attendance_type'),
+                notes: formData.get('notes')
+            });
+            
+        } catch (error) {
+            console.error('Error submitting attendance:', error);
+            alert('Error submitting attendance. Please try again.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Submit Attendance';
+        }
+    }
+    
+    processAttendance(method, data = {}) {
+        // Hide all sections
+        this.hideFaceRecognition();
+        this.hideManualForm();
+        
+        // Show success animation
+        this.successAnimation.classList.add('show');
+        
+        // Update status
+        this.loadTodayStatus();
+        this.loadRecentActivity();
+        
+        // Hide success animation after 3 seconds
+        setTimeout(() => {
+            this.successAnimation.classList.remove('show');
+        }, 3000);
+    }
+    
+    loadTodayStatus() {
+        // Simulate loading today's status
+        // In real implementation, this would fetch from API
+        const now = new Date();
+        const checkInTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);
+        
+        document.getElementById('checkInTime').textContent = checkInTime.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        document.getElementById('attendanceStatus').textContent = 'Present';
+        
+        // Calculate working hours
+        const workingMs = now - checkInTime;
+        const workingHours = Math.floor(workingMs / (1000 * 60 * 60));
+        const workingMinutes = Math.floor((workingMs % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('workingHours').textContent = `${workingHours}h ${workingMinutes}m`;
+    }
+    
+    loadRecentActivity() {
+        // Simulate loading recent activity
+        const activities = [
+            { type: 'check-in', title: 'Checked In', time: '9:00 AM', date: 'Today' },
+            { type: 'check-out', title: 'Checked Out', time: '6:00 PM', date: 'Yesterday' },
+            { type: 'check-in', title: 'Checked In', time: '9:15 AM', date: 'Yesterday' }
+        ];
+        
+        const activityList = document.getElementById('recentActivityList');
+        activityList.innerHTML = '';
+        
+        activities.forEach(activity => {
+            const item = document.createElement('div');
+            item.className = 'activity-item';
+            item.innerHTML = `
+                <div class="activity-icon ${activity.type}">
+                    <i class="fas fa-${activity.type === 'check-in' ? 'sign-in-alt' : 'sign-out-alt'}"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">${activity.title}</div>
+                    <div class="activity-time">${activity.time} • ${activity.date}</div>
+                </div>
+            `;
+            activityList.appendChild(item);
+        });
+    }
+}
+
+// Initialize attendance checker when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    new AttendanceChecker();
+});
+</script>
+{% endblock %}

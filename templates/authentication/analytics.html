@@ -1,0 +1,655 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics Dashboard - Face Recognition Attendance System{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<span>Analytics</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .analytics-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .analytics-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
+    }
+    
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .kpi-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .kpi-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .kpi-card.attendance {
+        border-left-color: #10b981;
+    }
+    
+    .kpi-card.users {
+        border-left-color: #667eea;
+    }
+    
+    .kpi-card.departments {
+        border-left-color: #f59e0b;
+    }
+    
+    .kpi-card.recognition {
+        border-left-color: #ef4444;
+    }
+    
+    .kpi-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .kpi-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+        margin-bottom: 1rem;
+    }
+    
+    .kpi-icon.attendance {
+        background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    .kpi-icon.users {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+    
+    .kpi-icon.departments {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+    
+    .kpi-icon.recognition {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    
+    .kpi-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+    
+    .kpi-label {
+        color: #64748b;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .kpi-change {
+        font-size: 0.875rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    
+    .kpi-change.positive {
+        color: #059669;
+    }
+    
+    .kpi-change.negative {
+        color: #dc2626;
+    }
+    
+    .chart-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .chart-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .chart-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .chart-placeholder {
+        height: 300px;
+        background: #f8fafc;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #64748b;
+        border: 2px dashed #e2e8f0;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .chart-placeholder i {
+        font-size: 3rem;
+        opacity: 0.5;
+    }
+    
+    .filter-section {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .filter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        align-items: end;
+    }
+    
+    .form-floating select,
+    .form-floating input {
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-floating select:focus,
+    .form-floating input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .insights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .insight-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        border-left: 4px solid #667eea;
+    }
+    
+    .insight-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .insight-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+    
+    .insight-title {
+        font-weight: 600;
+        color: #1e293b;
+    }
+    
+    .insight-content {
+        color: #64748b;
+        line-height: 1.6;
+    }
+    
+    .insight-metric {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: between;
+        align-items: center;
+    }
+    
+    .metric-label {
+        font-weight: 500;
+        color: #64748b;
+    }
+    
+    .metric-value {
+        font-weight: 700;
+        color: #667eea;
+    }
+    
+    .export-section {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .export-btn {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 1.5rem;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.25rem;
+    }
+    
+    .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+        text-decoration: none;
+    }
+    
+    .export-btn.pdf {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    
+    .export-btn.excel {
+        background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    .export-btn.csv {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+    
+    .real-time-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #f0fdf4;
+        color: #059669;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="analytics-header">
+    <div class="d-flex justify-content-between align-items-center" style="position: relative; z-index: 2;">
+        <div>
+            <h2><i class="fas fa-chart-line me-2"></i>Analytics Dashboard</h2>
+            <p class="mb-0">Comprehensive insights and performance metrics</p>
+        </div>
+        <div>
+            <div class="real-time-indicator">
+                <div class="pulse-dot"></div>
+                Live Data
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Performance Indicators -->
+<div class="kpi-grid">
+    <div class="kpi-card attendance">
+        <div class="kpi-icon attendance">
+            <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="kpi-value">94.7%</div>
+        <div class="kpi-label">Overall Attendance Rate</div>
+        <div class="kpi-change positive">
+            <i class="fas fa-arrow-up"></i>
+            +2.3% from last month
+        </div>
+    </div>
+    
+    <div class="kpi-card users">
+        <div class="kpi-icon users">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="kpi-value">247</div>
+        <div class="kpi-label">Active Users</div>
+        <div class="kpi-change positive">
+            <i class="fas fa-arrow-up"></i>
+            +12 new users
+        </div>
+    </div>
+    
+    <div class="kpi-card departments">
+        <div class="kpi-icon departments">
+            <i class="fas fa-building"></i>
+        </div>
+        <div class="kpi-value">8</div>
+        <div class="kpi-label">Departments</div>
+        <div class="kpi-change positive">
+            <i class="fas fa-arrow-up"></i>
+            +1 new department
+        </div>
+    </div>
+    
+    <div class="kpi-card recognition">
+        <div class="kpi-icon recognition">
+            <i class="fas fa-camera"></i>
+        </div>
+        <div class="kpi-value">89.2%</div>
+        <div class="kpi-label">Face Recognition Success</div>
+        <div class="kpi-change negative">
+            <i class="fas fa-arrow-down"></i>
+            -1.1% from last week
+        </div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="filter-section">
+    <h5 class="mb-3"><i class="fas fa-filter me-2"></i>Analytics Filters</h5>
+    <div class="filter-grid">
+        <div class="form-floating">
+            <select class="form-select" id="timeRange">
+                <option value="7d">Last 7 Days</option>
+                <option value="30d" selected>Last 30 Days</option>
+                <option value="90d">Last 90 Days</option>
+                <option value="1y">Last Year</option>
+            </select>
+            <label for="timeRange">Time Range</label>
+        </div>
+        
+        <div class="form-floating">
+            <select class="form-select" id="department">
+                <option value="all">All Departments</option>
+                <option value="engineering">Engineering</option>
+                <option value="hr">Human Resources</option>
+                <option value="sales">Sales</option>
+                <option value="marketing">Marketing</option>
+            </select>
+            <label for="department">Department</label>
+        </div>
+        
+        <div class="form-floating">
+            <select class="form-select" id="userRole">
+                <option value="all">All Roles</option>
+                <option value="admin">Admin</option>
+                <option value="manager">Manager</option>
+                <option value="employee">Employee</option>
+            </select>
+            <label for="userRole">User Role</label>
+        </div>
+        
+        <button class="btn btn-primary" onclick="applyFilters()">
+            <i class="fas fa-search me-2"></i>Apply Filters
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Charts Section -->
+    <div class="col-lg-8">
+        <!-- Attendance Trends -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h5 class="chart-title">
+                    <i class="fas fa-chart-area"></i>
+                    Attendance Trends
+                </h5>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-outline-primary active">Daily</button>
+                    <button type="button" class="btn btn-outline-primary">Weekly</button>
+                    <button type="button" class="btn btn-outline-primary">Monthly</button>
+                </div>
+            </div>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-area"></i>
+                <h6>Attendance Trends Chart</h6>
+                <p class="text-muted">Interactive chart showing attendance patterns over time</p>
+            </div>
+        </div>
+        
+        <!-- Department Performance -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <h5 class="chart-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Department Performance
+                </h5>
+            </div>
+            <div class="chart-placeholder">
+                <i class="fas fa-chart-bar"></i>
+                <h6>Department Performance Chart</h6>
+                <p class="text-muted">Comparative analysis of department attendance rates</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Insights Section -->
+    <div class="col-lg-4">
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="insight-title">Key Insights</div>
+                </div>
+                <div class="insight-content">
+                    Engineering department shows the highest attendance rate this month with 97.2% consistency.
+                </div>
+                <div class="insight-metric">
+                    <span class="metric-label">Top Performer:</span>
+                    <span class="metric-value">Engineering</span>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="insight-title">Attention Needed</div>
+                </div>
+                <div class="insight-content">
+                    Face recognition success rate has decreased by 1.1% this week. Consider system maintenance.
+                </div>
+                <div class="insight-metric">
+                    <span class="metric-label">Current Rate:</span>
+                    <span class="metric-value">89.2%</span>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="insight-title">Achievement</div>
+                </div>
+                <div class="insight-content">
+                    Overall attendance has improved by 2.3% compared to last month, reaching a new high.
+                </div>
+                <div class="insight-metric">
+                    <span class="metric-label">Improvement:</span>
+                    <span class="metric-value">+2.3%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Section -->
+<div class="export-section">
+    <h5 class="mb-3"><i class="fas fa-download me-2"></i>Export Analytics</h5>
+    <p class="text-muted mb-3">Download comprehensive reports and analytics data</p>
+    
+    <div>
+        <a href="#" class="export-btn pdf" onclick="exportAnalytics('pdf')">
+            <i class="fas fa-file-pdf"></i>
+            PDF Report
+        </a>
+        <a href="#" class="export-btn excel" onclick="exportAnalytics('excel')">
+            <i class="fas fa-file-excel"></i>
+            Excel Data
+        </a>
+        <a href="#" class="export-btn csv" onclick="exportAnalytics('csv')">
+            <i class="fas fa-file-csv"></i>
+            CSV Export
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function applyFilters() {
+    const timeRange = document.getElementById('timeRange').value;
+    const department = document.getElementById('department').value;
+    const userRole = document.getElementById('userRole').value;
+    
+    console.log('Applying filters:', { timeRange, department, userRole });
+    
+    // Show loading state
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Loading...';
+    btn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        
+        // Show success message
+        showNotification('Filters applied successfully!', 'success');
+    }, 1500);
+}
+
+function exportAnalytics(format) {
+    const formatNames = {
+        'pdf': 'PDF Report',
+        'excel': 'Excel Spreadsheet',
+        'csv': 'CSV Data File'
+    };
+    
+    showNotification(`Exporting ${formatNames[format]}...`, 'info');
+    
+    // Simulate export
+    setTimeout(() => {
+        showNotification(`${formatNames[format]} exported successfully!`, 'success');
+    }, 2000);
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type === 'success' ? 'success' : type === 'info' ? 'info' : 'primary'} alert-dismissible fade show position-fixed`;
+    notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'info' ? 'info-circle' : 'chart-line'} me-2"></i>
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 5000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate KPI cards on load
+    const kpiCards = document.querySelectorAll('.kpi-card');
+    kpiCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'all 0.5s ease-out';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+    
+    // Auto-refresh data every 30 seconds
+    setInterval(() => {
+        console.log('Refreshing analytics data...');
+        // In real implementation, this would fetch fresh data
+    }, 30000);
+});
+</script>
+{% endblock %}

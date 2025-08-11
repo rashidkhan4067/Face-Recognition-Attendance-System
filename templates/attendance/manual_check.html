@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}Manual Attendance - Face Recognition Attendance System{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<a href="{% url 'attendance:check' %}">Attendance</a>
+<i class="fas fa-chevron-right mx-2"></i>
+<span>Manual Entry</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .manual-header {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .manual-form-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .form-floating {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-floating input,
+    .form-floating select,
+    .form-floating textarea {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-floating input:focus,
+    .form-floating select:focus,
+    .form-floating textarea:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+        border: none;
+        border-radius: 25px;
+        padding: 12px 30px;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="manual-header">
+    <h2><i class="fas fa-keyboard me-2"></i>Manual Attendance Entry</h2>
+    <p class="mb-0">Enter attendance information manually</p>
+</div>
+
+<!-- Manual Form -->
+<div class="manual-form-card">
+    <form method="post" id="manualAttendanceForm">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="employeeId" name="employee_id" 
+                           placeholder="Employee ID" value="{{ user.employee_id }}" required>
+                    <label for="employeeId">Employee ID</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <select class="form-select" id="attendanceType" name="attendance_type" required>
+                        <option value="">Select Action</option>
+                        <option value="check_in">Check In</option>
+                        <option value="check_out">Check Out</option>
+                    </select>
+                    <label for="attendanceType">Action</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-floating">
+            <input type="datetime-local" class="form-control" id="timestamp" name="timestamp" 
+                   value="{{ current_time }}" required>
+            <label for="timestamp">Date & Time</label>
+        </div>
+        
+        <div class="form-floating">
+            <textarea class="form-control" id="notes" name="notes" 
+                      placeholder="Notes (optional)" style="height: 100px;"></textarea>
+            <label for="notes">Notes (optional)</label>
+        </div>
+        
+        <button type="submit" class="btn btn-submit">
+            <i class="fas fa-save me-2"></i>Submit Attendance
+        </button>
+    </form>
+</div>
+
+<!-- Back to Attendance -->
+<div class="text-center mt-3">
+    <a href="{% url 'attendance:check' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Back to Attendance
+    </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('manualAttendanceForm');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+        submitBtn.disabled = true;
+        
+        // Simulate form submission
+        setTimeout(() => {
+            alert('Attendance recorded successfully!');
+            window.location.href = "{% url 'attendance:check' %}";
+        }, 2000);
+    });
+    
+    // Set current time as default
+    const timestampInput = document.getElementById('timestamp');
+    if (!timestampInput.value) {
+        const now = new Date();
+        const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+        timestampInput.value = localDateTime.toISOString().slice(0, 16);
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,586 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Face Recognition Attendance System</title>
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Login to the Face Recognition Attendance System">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👤</text></svg>">
+
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a67d8;
+            --primary-light: #7c3aed;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-20px) translateY(-10px); }
+            50% { transform: translateX(20px) translateY(10px); }
+            75% { transform: translateX(-10px) translateY(20px); }
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+            margin: 2rem;
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .login-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-subtitle {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 2;
+            font-weight: 400;
+        }
+
+        .login-form {
+            padding: 2.5rem 2rem;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-floating input {
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            padding: 1.25rem 1rem 1.25rem 3rem;
+            background: #f8fafc;
+        }
+
+        .form-floating input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+            background: white;
+        }
+
+        .form-floating label {
+            color: #64748b;
+            font-weight: 500;
+            padding-left: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating input:focus ~ label,
+        .form-floating input:not(:placeholder-shown) ~ label {
+            color: var(--primary);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1.1rem;
+            z-index: 5;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating:focus-within .input-icon {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-login:hover::before {
+            left: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            transform: none;
+            cursor: not-allowed;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .forgot-password a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .forgot-password a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .register-link {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .register-link p {
+            margin-bottom: 0;
+            color: #64748b;
+        }
+
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .alert {
+            border: none;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border-left-color: var(--success);
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #991b1b;
+            border-left-color: var(--danger);
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            border-left-color: var(--warning);
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #cffafe, #a5f3fc);
+            color: #155e75;
+            border-left-color: #06b6d4;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 0.5rem;
+            border-left: 4px solid var(--danger);
+            font-size: 0.875rem;
+        }
+
+        .demo-credentials {
+            background: linear-gradient(135deg, #e0f2fe, #b3e5fc);
+            border: 1px solid #0288d1;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .demo-credentials h6 {
+            color: #01579b;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .demo-credentials p {
+            margin-bottom: 0.25rem;
+            color: #0277bd;
+        }
+
+        .demo-credentials strong {
+            color: #01579b;
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 1rem;
+                border-radius: 15px;
+            }
+
+            .login-header {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+
+            .login-title {
+                font-size: 2rem;
+            }
+
+            .login-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .register-link {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            [data-theme="auto"] {
+                --light: #1e293b;
+                --dark: #f8fafc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Header -->
+        <div class="login-header">
+            <div class="login-icon">
+                <i class="fas fa-user-check"></i>
+            </div>
+            <h1 class="login-title">Welcome Back</h1>
+            <p class="login-subtitle">Sign in to your account</p>
+        </div>
+
+        <!-- Form -->
+        <div class="login-form">
+            <!-- Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show animate__animated animate__fadeInDown" role="alert">
+                        <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-triangle{% elif message.tags == 'warning' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Demo Credentials -->
+            <div class="demo-credentials">
+                <h6><i class="fas fa-info-circle me-2"></i>Demo Credentials</h6>
+                <p><strong>Admin:</strong> admin / admin123</p>
+                <p><strong>Manager:</strong> manager / manager123</p>
+                <p><strong>Employee:</strong> employee / employee123</p>
+            </div>
+
+            <!-- Login Form -->
+            <form method="post" id="loginForm" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="form-floating">
+                    <i class="input-icon fas fa-user"></i>
+                    {{ form.username }}
+                    <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                    {% if form.username.errors %}
+                        <div class="error-message">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-floating">
+                    <i class="input-icon fas fa-lock"></i>
+                    {{ form.password }}
+                    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                    {% if form.password.errors %}
+                        <div class="error-message">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            Remember me
+                        </label>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" onclick="showForgotPassword()">
+                            <i class="fas fa-key me-1"></i>Forgot Password?
+                        </a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Sign In
+                </button>
+            </form>
+        </div>
+
+        <!-- Register Link -->
+        <div class="register-link">
+            <p>
+                Don't have an account?
+                <a href="{% url 'authentication:register' %}">
+                    <i class="fas fa-user-plus me-1"></i>Create Account
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const inputs = form.querySelectorAll('input[type="text"], input[type="password"]');
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<span class="loading-spinner me-2"></span>Signing In...';
+
+                // Re-enable button after 10 seconds in case of error
+                setTimeout(() => {
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Sign In';
+                }, 10000);
+            });
+
+            // Input validation feedback
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (this.value.trim() !== '') {
+                        this.classList.add('is-valid');
+                        this.classList.remove('is-invalid');
+                    } else {
+                        this.classList.add('is-invalid');
+                        this.classList.remove('is-valid');
+                    }
+                });
+
+                input.addEventListener('input', function() {
+                    this.classList.remove('is-invalid', 'is-valid');
+                });
+            });
+
+            // Demo credential auto-fill
+            const demoCredentials = document.querySelector('.demo-credentials');
+            if (demoCredentials) {
+                const demoButtons = demoCredentials.querySelectorAll('p');
+                demoButtons.forEach(button => {
+                    button.style.cursor = 'pointer';
+                    button.addEventListener('click', function() {
+                        const text = this.textContent;
+                        if (text.includes('admin')) {
+                            document.getElementById('{{ form.username.id_for_label }}').value = 'admin';
+                            document.getElementById('{{ form.password.id_for_label }}').value = 'admin123';
+                        } else if (text.includes('manager')) {
+                            document.getElementById('{{ form.username.id_for_label }}').value = 'manager';
+                            document.getElementById('{{ form.password.id_for_label }}').value = 'manager123';
+                        } else if (text.includes('employee')) {
+                            document.getElementById('{{ form.username.id_for_label }}').value = 'employee';
+                            document.getElementById('{{ form.password.id_for_label }}').value = 'employee123';
+                        }
+
+                        // Trigger input events to update validation
+                        inputs.forEach(input => {
+                            input.dispatchEvent(new Event('input'));
+                            input.dispatchEvent(new Event('blur'));
+                        });
+                    });
+                });
+            }
+
+            // Auto-focus on username field
+            const usernameField = document.getElementById('{{ form.username.id_for_label }}');
+            if (usernameField) {
+                usernameField.focus();
+            }
+        });
+
+        function showForgotPassword() {
+            alert('Password reset functionality will be implemented soon. Please contact your administrator for password reset.');
+        }
+    </script>
+</body>
+</html>

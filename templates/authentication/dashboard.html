@@ -1,0 +1,529 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Face Recognition Attendance System{% endblock %}
+
+{% block breadcrumb %}
+<i class="fas fa-chevron-right mx-2"></i>
+<span>Dashboard</span>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dashboard-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
+    }
+
+    .welcome-text {
+        position: relative;
+        z-index: 2;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-card.attendance {
+        border-left-color: #28a745;
+    }
+
+    .stat-card.working-hours {
+        border-left-color: #17a2b8;
+    }
+
+    .stat-card.face-status {
+        border-left-color: #ffc107;
+    }
+
+    .stat-card.monthly {
+        border-left-color: #6f42c1;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-icon.attendance {
+        background: linear-gradient(135deg, #28a745, #20c997);
+    }
+
+    .stat-icon.working-hours {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+    }
+
+    .stat-icon.face-status {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+    }
+
+    .stat-icon.monthly {
+        background: linear-gradient(135deg, #6f42c1, #5a32a3);
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: #6c757d;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-change {
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .stat-change.positive {
+        color: #28a745;
+    }
+
+    .stat-change.negative {
+        color: #dc3545;
+    }
+
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .action-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        border: 2px solid transparent;
+    }
+
+    .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        color: inherit;
+        border-color: #667eea;
+    }
+
+    .action-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        margin: 0 auto 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .action-card:hover .action-icon {
+        transform: scale(1.1);
+    }
+
+    .action-title {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .action-description {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+    .face-enrollment-banner {
+        background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+        border: 1px solid #ffeaa7;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .face-enrollment-banner h5 {
+        color: #856404;
+        margin-bottom: 1rem;
+    }
+
+    .face-enrollment-banner p {
+        color: #856404;
+        margin-bottom: 1.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <div class="welcome-text">
+        <h2><i class="fas fa-tachometer-alt me-2"></i>Welcome back, {{ user.get_full_name|default:user.username }}!</h2>
+        <p class="mb-0">Here's your attendance overview for today</p>
+    </div>
+</div>
+
+<!-- Face Enrollment Banner (if not enrolled) -->
+{% if not user.is_face_enrolled %}
+<div class="face-enrollment-banner">
+    <h5><i class="fas fa-exclamation-triangle me-2"></i>Face Recognition Not Set Up</h5>
+    <p>Enable quick attendance marking by enrolling your face in the system.</p>
+    <a href="{% url 'face_recognition:enrollment' %}" class="btn btn-warning">
+        <i class="fas fa-camera me-2"></i>Enroll Face Now
+    </a>
+</div>
+{% endif %}
+
+<!-- Statistics Grid -->
+<div class="stats-grid">
+    <div class="stat-card attendance">
+        <div class="stat-icon attendance">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-value" id="todayStatus">Present</div>
+        <div class="stat-label">Today's Status</div>
+        <div class="stat-change positive">
+            <i class="fas fa-arrow-up me-1"></i>On time
+        </div>
+    </div>
+
+    <div class="stat-card working-hours">
+        <div class="stat-icon working-hours">
+            <i class="fas fa-business-time"></i>
+        </div>
+        <div class="stat-value" id="workingHours">8h 30m</div>
+        <div class="stat-label">Working Hours Today</div>
+        <div class="stat-change positive">
+            <i class="fas fa-arrow-up me-1"></i>+30m from yesterday
+        </div>
+    </div>
+
+    <div class="stat-card face-status">
+        <div class="stat-icon face-status">
+            <i class="fas fa-camera"></i>
+        </div>
+        <div class="stat-value">{% if user.is_face_enrolled %}Enrolled{% else %}Not Enrolled{% endif %}</div>
+        <div class="stat-label">Face Recognition</div>
+        {% if user.is_face_enrolled %}
+            <div class="stat-change positive">
+                <i class="fas fa-check me-1"></i>Active
+            </div>
+        {% else %}
+            <div class="stat-change negative">
+                <i class="fas fa-times me-1"></i>Inactive
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="stat-card monthly">
+        <div class="stat-icon monthly">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-value">22/23</div>
+        <div class="stat-label">Days Present This Month</div>
+        <div class="stat-change positive">
+            <i class="fas fa-arrow-up me-1"></i>95.7% attendance
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <a href="{% url 'attendance:check' %}" class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="action-title">Mark Attendance</div>
+        <div class="action-description">Check in or check out for today</div>
+    </a>
+
+    <a href="{% url 'attendance:history' %}" class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-history"></i>
+        </div>
+        <div class="action-title">View History</div>
+        <div class="action-description">See your attendance records</div>
+    </a>
+
+    {% if not user.is_face_enrolled %}
+    <a href="{% url 'face_recognition:enrollment' %}" class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-camera"></i>
+        </div>
+        <div class="action-title">Enroll Face</div>
+        <div class="action-description">Set up face recognition</div>
+    </a>
+    {% endif %}
+
+    <a href="{% url 'authentication:profile' %}" class="action-card">
+        <div class="action-icon">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="action-title">My Profile</div>
+        <div class="action-description">Update personal information</div>
+    </a>
+</div>
+
+    <div class="row">
+        <!-- Today's Attendance -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Today's Attendance</h5>
+                    <span class="badge bg-secondary">{{ "now"|date:"M d, Y" }}</span>
+                </div>
+                <div class="card-body">
+                    {% if today_attendance %}
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <i class="fas fa-sign-in-alt text-success fa-2x mb-2"></i>
+                                    <h6>Check In</h6>
+                                    <p class="mb-0">
+                                        {% if today_attendance.check_in_time %}
+                                            {{ today_attendance.check_in_time|time:"H:i" }}
+                                        {% else %}
+                                            Not checked in
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <i class="fas fa-sign-out-alt text-danger fa-2x mb-2"></i>
+                                    <h6>Check Out</h6>
+                                    <p class="mb-0">
+                                        {% if today_attendance.check_out_time %}
+                                            {{ today_attendance.check_out_time|time:"H:i" }}
+                                        {% else %}
+                                            Not checked out
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <span class="badge bg-{{ today_attendance.status|yesno:'success,warning,danger' }} fs-6">
+                                {{ today_attendance.get_status_display }}
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-calendar-plus text-muted fa-3x mb-3"></i>
+                            <h6 class="text-muted">No attendance record for today</h6>
+                            <a href="{% url 'attendance:check' %}" class="btn btn-primary">
+                                <i class="fas fa-camera me-2"></i>Mark Attendance
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-lg-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        {% if not face_enrolled %}
+                            <a href="{% url 'face_recognition:enrollment' %}" class="btn btn-warning">
+                                <i class="fas fa-camera me-2"></i>Enroll Face
+                            </a>
+                        {% endif %}
+                        
+                        <a href="{% url 'attendance:check' %}" class="btn btn-primary">
+                            <i class="fas fa-clock me-2"></i>Mark Attendance
+                        </a>
+                        
+                        <a href="{% url 'attendance:history' %}" class="btn btn-info">
+                            <i class="fas fa-history me-2"></i>View History
+                        </a>
+                        
+                        <a href="{% url 'authentication:profile' %}" class="btn btn-secondary">
+                            <i class="fas fa-user me-2"></i>Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Attendance -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Attendance</h5>
+                    <a href="{% url 'attendance:history' %}" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if recent_attendance %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Status</th>
+                                        <th>Total Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for record in recent_attendance %}
+                                        <tr>
+                                            <td>{{ record.date|date:"M d, Y" }}</td>
+                                            <td>
+                                                {% if record.check_in_time %}
+                                                    {{ record.check_in_time|time:"H:i" }}
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if record.check_out_time %}
+                                                    {{ record.check_out_time|time:"H:i" }}
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{% if record.status == 'present' %}success{% elif record.status == 'late' %}warning{% else %}danger{% endif %}">
+                                                    {{ record.get_status_display }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {% if record.total_hours %}
+                                                    {{ record.total_hours }}
+                                                {% else %}
+                                                    <span class="text-muted">-</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-calendar text-muted fa-3x mb-3"></i>
+                            <h6 class="text-muted">No attendance records found</h6>
+                            <p class="text-muted">Start marking your attendance to see records here.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update real-time data
+    updateDashboardData();
+
+    // Update every 30 seconds
+    setInterval(updateDashboardData, 30000);
+
+    function updateDashboardData() {
+        // Update current time and working hours
+        updateWorkingHours();
+        updateTime();
+    }
+
+    function updateWorkingHours() {
+        // Simulate calculating working hours
+        const now = new Date();
+        const startTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);
+
+        if (now > startTime) {
+            const diffMs = now - startTime;
+            const hours = Math.floor(diffMs / (1000 * 60 * 60));
+            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+            const workingHoursElement = document.getElementById('workingHours');
+            if (workingHoursElement) {
+                workingHoursElement.textContent = `${hours}h ${minutes}m`;
+            }
+        }
+    }
+
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString();
+        document.title = `Dashboard - ${timeString} - Face Recognition Attendance System`;
+    }
+
+    // Animate stat cards on load
+    const statCards = document.querySelectorAll('.stat-card');
+    statCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+            card.style.transition = 'all 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
+{% endblock %}
