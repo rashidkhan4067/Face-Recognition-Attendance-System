@@ -2,6 +2,9 @@
 
 A comprehensive Django-based attendance system with face recognition capabilities, modern UI, and robust authentication.
 
+## Demo Video 
+https://www.tiktok.com/@rashidshafique.09/video/7530910764446616839
+
 ## 📋 Features
 
 ### Authentication System
@@ -200,3 +203,4 @@ This system is production-ready with:
 - Deployment configurations
 - Docker support
 - Environment variable management
+
