@@ -1,0 +1,62 @@
+{
+  "name": "Face Recognition Attendance System",
+  "description": "A comprehensive Django-based attendance system with face recognition capabilities",
+  "repository": "https://github.com/your-username/face-recognition-attendance-system",
+  "logo": "https://example.com/logo.png",
+  "keywords": ["django", "face-recognition", "attendance", "python", "bootstrap"],
+  "success_url": "/auth/login/",
+  "env": {
+    "SECRET_KEY": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "DEBUG": {
+      "description": "Set to False for production",
+      "value": "False"
+    },
+    "ALLOWED_HOSTS": {
+      "description": "Comma-separated list of allowed hosts",
+      "value": ".herokuapp.com"
+    },
+    "DB_NAME": {
+      "description": "Database name",
+      "value": "face_recognition_db"
+    },
+    "DB_USER": {
+      "description": "Database user",
+      "value": "postgres"
+    },
+    "DB_PASSWORD": {
+      "description": "Database password",
+      "value": ""
+    },
+    "DB_HOST": {
+      "description": "Database host",
+      "value": "localhost"
+    },
+    "DB_PORT": {
+      "description": "Database port",
+      "value": "5432"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "as": "DATABASE"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "python manage_production.py migrate && python manage_production.py collectstatic --noinput"
+  }
+}
